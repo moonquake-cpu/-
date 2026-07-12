@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小米汽车全部产品详情</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Microsoft Yahei", sans-serif;
+            color: #333;
+            background: #fff;
+            line-height: 1.6;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        img {
+            width: 100%;
+            display: block;
+        }
+        /* 顶部导航栏 */
+        .top-nav {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            background: #fff;
+            z-index: 99;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        .back-btn {
+            padding: 8px 20px;
+            border: 1px solid #ff6700;
+            color: #ff6700;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+        .back-btn:hover {
+            background: #ff6700;
+            color: #fff;
+        }
+        .nav-tab a {
+            padding: 6px 16px;
+            margin: 0 6px;
+            border-radius: 16px;
+            border: 1px solid #ddd;
+        }
+        .nav-tab a:hover {
+            border-color: #ff6700;
+            color: #ff6700;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        /* 产品主图 */
+        .main-img {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+        /* 标题价格 */
+        .title-box h1 {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+        .title-box .desc {
+            font-size: 20px;
+            color: #999;
+            margin-bottom: 30px;
+        }
+        .price {
+            font-size: 32px;
+            color: #ff6700;
+            margin-bottom: 40px;
+        }
+        /* 内容板块 */
+        .block {
+            margin: 60px 0;
+        }
+        .block h2 {
+            font-size: 26px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ff6700;
+            padding-left: 12px;
+        }
+        .block p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 12px;
+        }
+        /* 参数网格 */
+        .param-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+        .param-item {
+            padding: 16px;
+            background: #f8f8f8;
+            border-radius: 8px;
+        }
+        .param-item h4 {
+            font-size: 18px;
+            margin-bottom: 6px;
+            color: #111;
+        }
+        .param-item span {
+            color: #ff6700;
+            font-weight: bold;
+        }
+        /* 分割线 */
+        .split-line {
+            height: 1px;
+            background: #eee;
+            margin: 80px 0;
+        }
+        /* 页脚 */
+        footer {
+            padding: 40px 20px;
+            text-align: center;
+            background: #f5f5f5;
+            margin-top: 80px;
+            font-size: 13px;
+            color: #777;
+        }
+        /* 移动端适配 */
+        @media (max-width:768px){
+            .title-box h1 {
+                font-size: 28px;
+            }
+            .price {
+                font-size: 24px;
+            }
+            .top-nav {
+                flex-wrap: wrap;
+                gap:15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部返回+切换导航 -->
+    <div class="top-nav">
+        <a href="xiaomi.html" class="back-btn">← 返回商城首页</a>
+        <div class="nav-tab">
+            <a href="#yu7">Xiaomi YU7</a>
+            <a href="#su7">新一代SU7 Max</a>
+            <a href="#ultra">SU7 Ultra</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 1. Xiaomi YU7 -->
+        <div id="yu7">
+            <div class="main-img">
+                <img src="2.jpg" alt="小米YU7">
+            </div>
+            <div class="title-box">
+                <h1>Xiaomi YU7</h1>
+                <p class="desc">时尚轿跑SUV，舒淇代言家用纯电SUV</p>
+                <div class="price">售价：189900 元起</div>
+            </div>
+            <div class="block">
+                <h2>产品介绍</h2>
+                <p>小米首款纯电溜背轿跑SUV，由品牌代言人舒淇代言。兼顾家用大空间与流畅溜背颜值，整车舒适性调校偏向家庭出行。</p>
+                <p>搭载小米澎湃全域智驾，无图城市NOA、高速NOA、自动泊车全覆盖；车内澎湃OS车机与手机、米家设备无缝互联，后排超大乘坐空间，后备箱支持拓展露营装备。</p>
+            </div>
+            <div class="block">
+                <h2>核心参数</h2>
+                <div class="param-list">
+                    <div class="param-item"><h4>CLTC续航</h4><span>760km</span></div>
+                    <div class="param-item"><h4>零百加速</h4><span>3.6s</span></div>
+                    <div class="param-item"><h4>车身布局</h4><span>五门五座SUV</span></div>
+                    <div class="param-item"><h4>快充</h4><span>10分钟充380km</span></div>
+                    <div class="param-item"><h4>驱动</h4><span>后驱/双电机四驱</span></div>
+                    <div class="param-item"><h4>后备箱容积</h4><span>520L拓展1450L</span></div>
+                </div>
+            </div>
+            <div class="block">
+                <h2>设计亮点</h2>
+                <p>1. 流线溜背车身，无边界贯穿式尾灯；</p>
+                <p>2. 大尺寸全景天幕，车内通透感拉满；</p>
+                <p>3. 舒淇同款红车漆专属配色；</p>
+                <p>4. 舒适柔软真皮座椅，后排腿部空间宽裕。</p>
+            </div>
+        </div>
+
+        <div class="split-line"></div>
+
+        <!-- 2. 新一代SU7 Max -->
+        <div id="su7">
+            <div class="main-img">
+                <img src="3.jpg" alt="新一代小米SU7 Max">
+            </div>
+            <div class="title-box">
+                <h1>新一代 Xiaomi SU7 Max</h1>
+                <p class="desc">均衡家用纯电轿跑，舒适与性能兼顾</p>
+                <div class="price">售价：205900 元起</div>
+            </div>
+            <div class="block">
+                <h2>产品介绍</h2>
+                <p>全面迭代升级的小米纯电轿车，优化悬挂滤震，弱化硬赛道调校，日常城市通勤、长途高速都更舒适。升级大容量电池，续航更长、充电速度更快。</p>
+                <p>新一代澎湃智驾算法，识别精度提升，复杂路口自动通行；座舱流畅度升级，支持多屏流转、车内影音娱乐，兼顾年轻人运动外观与家庭实用需求。</p>
+            </div>
+            <div class="block">
+                <h2>核心参数</h2>
+                <div class="param-list">
+                    <div class="param-item"><h4>CLTC续航</h4><span>830km</span></div>
+                    <div class="param-item"><h4>零百加速</h4><span>2.78s</span></div>
+                    <div class="param-item"><h4>车身布局</h4><span>四门五座轿跑</span></div>
+                    <div class="param-item"><h4>快充</h4><span>10分钟充420km</span></div>
+                    <div class="param-item"><h4>驱动</h4><span>后驱/双电机四驱</span></div>
+                    <div class="param-item"><h4>底盘</h4><span>空气悬架可选</span></div>
+                </div>
+            </div>
+            <div class="block">
+                <h2>设计亮点</h2>
+                <p>1. 低风阻溜背车身，尾部贯穿式光刃尾灯；</p>
+                <p>2. 新增晴空蓝专属车身配色；</p>
+                <p>3. 轻量化运动轮毂，静音舒适轮胎；</p>
+                <p>4. 隐藏式门把手、无边框车窗，极简内饰。</p>
+            </div>
+        </div>
+
+        <div class="split-line"></div>
+
+        <!-- 3. SU7 Ultra 性能版 -->
+        <div id="ultra">
+            <div class="main-img">
+                <img src="home.jpg" alt="小米SU7 Ultra">
+            </div>
+            <div class="title-box">
+                <h1>Xiaomi SU7 Ultra</h1>
+                <p class="desc">赛道级纯电性能跑车，极致性能，赛道基因</p>
+                <div class="price">售价：215900 元起</div>
+            </div>
+            <div class="block">
+                <h2>产品介绍</h2>
+                <p>小米旗舰性能跑车，四电机四驱架构，原厂全套碳纤维空气动力学套件，竞技刹车、赛道专属底盘，专为性能爱好者打造。</p>
+                <p>内置专业赛道模式，记录圈速、动力、刹车数据；澎湃智驾全系标配，兼顾日常代步与赛道玩乐，车机专属竞速UI，动力可视化仪表盘。</p>
+            </div>
+            <div class="block">
+                <h2>核心参数</h2>
+                <div class="param-list">
+                    <div class="param-item"><h4>峰值马力</h4><span>1548匹</span></div>
+                    <div class="param-item"><h4>零百加速</h4><span>1.98s</span></div>
+                    <div class="param-item"><h4>CLTC续航</h4><span>800km</span></div>
+                    <div class="param-item"><h4>快充</h4><span>10分钟充400km</span></div>
+                    <div class="param-item"><h4>驱动</h4><span>四电机全轮驱动</span></div>
+                    <div class="param-item"><h4>套件</h4><span>碳纤维包围+竞技尾翼</span></div>
+                </div>
+            </div>
+            <div class="block">
+                <h2>设计亮点</h2>
+                <p>1. 宽体碳纤维包围、双层竞技大尾翼；</p>
+                <p>2. 多辐锻造竞技轮毂、赛道半热熔轮胎；</p>
+                <p>3. Alcantara赛车运动内饰、金属换挡拨片；</p>
+                <p>4. 专属竞速黄哑光车漆，赛道标识拉花。</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© mi.com 小米汽车 | 京ICP证110507号</p>
+        <p>全国统一客服热线 400-100-5678</p>
+    </footer>
+</body>
+</html>

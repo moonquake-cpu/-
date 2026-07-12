@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>950816 - 小米官网复刻</title>
+    <style>
+        /* --- 基础重置与通用样式 --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei", "Hiragino Sans GB", "Heiti SC", "WenQuanYi Micro Hei", sans-serif;
+            background-color: #fff;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* --- 布局容器 --- */
+        .container {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        /* --- 头部导航 (模拟) --- */
+        header {
+            background: #fff;
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6700;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 15px;
+        }
+
+        nav a {
+            font-size: 16px;
+            color: #333;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ff6700;
+        }
+
+        /* --- 核心横幅区域 (重写轮播图) --- */
+        .hero-banner {
+            position: relative;
+            width: 100%;
+            /* 固定16:9比例容器，不会拉伸变形 */
+            padding-top: 56.25%;
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .carousel-slide {
+            flex: 0 0 100%;
+            height: 100%;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        /* 文字遮罩居中 */
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            color: #fff;
+            text-align: center;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .hero-content p {
+            font-size: 24px;
+            margin-bottom: 24px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 36px;
+            border: 1px solid #fff;
+            border-radius: 30px;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #fff;
+            color: #ff6700;
+        }
+
+        /* --- 轮播左右按钮 --- */
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.25);
+            color: #fff;
+            border: none;
+            font-size: 28px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .carousel-button:hover {
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .prev-button {
+            left: 24px;
+        }
+        .next-button {
+            right: 24px;
+        }
+
+        /* --- 底部指示器圆点 --- */
+        .carousel-indicators {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .indicator {
+            width: 14px;
+            height: 14px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .indicator.active {
+            background: #fff;
+            transform: scale(1.2);
+        }
+
+        /* 移动端适配轮播 */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 30px;
+            }
+            .hero-content p {
+                font-size: 16px;
+            }
+            .carousel-button {
+                width: 36px;
+                height: 36px;
+                font-size: 20px;
+            }
+            .prev-button {
+                left: 10px;
+            }
+            .next-button {
+                right: 10px;
+            }
+            .carousel-indicators {
+                bottom: 16px;
+            }
+            .indicator {
+                width: 10px;
+                height: 10px;
+            }
+        }
+
+        /* --- 新增：视频展示区域 --- */
+        .video-section {
+            padding: 60px 20px;
+            background-color: #fff;
+            text-align: center;
+        }
+
+        .video-section h2 {
+            font-size: 36px;
+            font-weight: 400;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .video-section p {
+            font-size: 18px;
+            color: #b0b0b0;
+            margin-bottom: 40px;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 56.25%; /* 16:9 宽高比 */
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- 产品展示网格 --- */
+        .product-section {
+            padding: 40px 0;
+            background: #fff;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 0 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: #fff;
+            padding: 40px 20px;
+            text-align: center;
+            border: 1px solid #f5f5f5;
+            transition: box-shadow 0.3s, transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            margin: 0 auto 20px;
+            height: 250px;
+            object-fit: contain;
+        }
+
+        .product-title {
+            font-size: 22px;
+            font-weight: 400;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .product-desc {
+            font-size: 14px;
+            color: #b0b0b0;
+            margin-bottom: 15px;
+        }
+
+        .product-price {
+            color: #ff6700;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        /* --- 底部 --- */
+        footer {
+            background: #f5f5f5;
+            padding: 50px 0;
+            text-align: center;
+            font-size: 12px;
+            color: #757575;
+            margin-top: 50px;
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            margin: 0 10px;
+            color: #757575;
+        }
+
+        .footer-links a:hover {
+            color: #ff6700;
+        }
+
+        /* --- 响应式调整（原有保留，轮播相关已重写覆盖） --- */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 头部导航 -->
+    <header>
+        <div class="container">
+            <div class="logo">Xiaomi 小米</div>
+            <nav>
+                <ul>
+                    <li><a href="#">小米商城</a></li>
+                    <li><a href="#">小米澎湃OS</a></li>
+                    <li><a href="#">小米汽车</a></li>
+                    <li><a href="#">小米影像</a></li>
+                    <li><a href="#">云服务</a></li>
+                    <li><a href="#">IoT</a></li>
+                    <li><a href="#">有品</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 核心横幅：轮播图（重写后的完整HTML） -->
+    <section class="hero-banner">
+        <div class="carousel-track">
+            <!-- 第1张 SU7 Ultra 双车图 -->
+            <div class="carousel-slide">
+                <img src="1.jpg" alt="小米SU7 Ultra">
+                <div class="hero-content">
+        
+                </div>
+            </div>
+            <!-- 第2张 YU7 舒淇红车 -->
+            <div class="carousel-slide">
+                <img src="2.jpg" alt="小米YU7">
+                <div class="hero-content">
+
+                </div>
+            </div>
+            <!-- 第3张 新一代SU7 蓝色 -->
+            <div class="carousel-slide">
+                <img src="3.jpg" alt="新一代小米SU7">
+                <div class="hero-content">
+          
+                </div>
+            </div>
+        </div>
+        <!-- 左右切换按钮 -->
+        <button class="carousel-button prev-button" aria-label="上一张">❮</button>
+        <button class="carousel-button next-button" aria-label="下一张">❯</button>
+        <!-- 底部圆点指示器 -->
+        <div class="carousel-indicators">
+            <span class="indicator active" data-index="0"></span>
+            <span class="indicator" data-index="1"></span>
+            <span class="indicator" data-index="2"></span>
+        </div>
+    </section>
+
+    <!-- 新增：视频展示区域 -->
+    <section class="video-section">
+        <div class="container">
+            <h2>探索小米科技</h2>
+            <p>观看最新产品视频，感受创新魅力</p>
+            <div class="video-container">
+                <video controls poster="about_3.jpg">
+                    <source src="小米播放器2.0.mp4" type="video/mp4">
+                    您的浏览器不支持视频播放。
+                </video>
+            </div>
+        </div>
+    </section>
+
+    <!-- 产品列表区域 -->
+    <section class="product-section">
+        <div class="container">
+            <div class="product-grid">
+                
+                <!-- 产品 1: YU7 -->
+                <div class="product-card">
+                    <img src="https://placehold.co/400x300/f5f5f5/333?text=Xiaomi+YU7" alt="Xiaomi YU7">
+                    <h2 class="product-title">Xiaomi YU7</h2>
+                    <p class="product-desc">小米汽车品牌代言人 舒淇</p>
+                    <a href="xiangqing.html" class="btn" style="border-color:#ff6700; color:#ff6700;">了解更多</a>
+                </div>
+
+                <!-- 产品 2: 新一代 SU7 -->
+                <div class="product-card">
+                    <img src="https://placehold.co/400x300/00aaff/FFF?text=New+Gen+SU7" alt="新一代 SU7">
+                    <h2 class="product-title">新一代 SU7</h2>
+                    <p class="product-desc">从容新一代</p>
+                    <a href="xiangqing.html" class="btn" style="border-color:#ff6700; color:#ff6700;">了解更多</a>
+                </div>
+
+                <!-- 产品 3: SU7 Ultra -->
+                <div class="product-card">
+                    <img src="https://placehold.co/400x300/333/FFD700?text=SU7+Ultra" alt="Xiaomi SU7 Ultra">
+                    <h2 class="product-title">Xiaomi SU7 Ultra</h2>
+                    <p class="product-desc">自信驾驭强大</p>
+                    <a href="xiangqing.html" class="btn" style="border-color:#ff6700; color:#ff6700;">了解详情</a>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部信息 -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">预约维修服务</a>
+                <a href="#">7天无理由退货</a>
+                <a href="#">15天免费换货</a>
+                <a href="#">满69元包邮</a>
+                <a href="#">1100余家售后网点</a>
+            </div>
+            <p>© mi.com 京ICP证110507号</p>
+            <p>探索黑科技，小米为发烧而生</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取DOM元素
+            const banner = document.querySelector('.hero-banner');
+            const track = document.querySelector('.carousel-track');
+            const slides = document.querySelectorAll('.carousel-slide');
+            const prevBtn = document.querySelector('.prev-button');
+            const nextBtn = document.querySelector('.next-button');
+            const indicators = document.querySelectorAll('.indicator');
+            const slideCount = slides.length;
+
+            let currentIndex = 0;
+            let autoTimer = null;
+            const autoDelay = 5000; // 5秒自动切换
+
+            // 更新轮播偏移
+            function updateCarousel() {
+                const slideWidth = slides[0].offsetWidth;
+                track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+                // 更新圆点激活状态
+                indicators.forEach((dot, idx) => {
+                    dot.classList.toggle('active', idx === currentIndex);
+                });
+            }
+
+            // 切换到指定下标
+            function goToSlide(index) {
+                if (index < 0) index = slideCount - 1;
+                if (index >= slideCount) index = 0;
+                currentIndex = index;
+                updateCarousel();
+            }
+
+            // 下一张
+            function nextSlide() {
+                goToSlide(currentIndex + 1);
+            }
+            // 上一张
+            function prevSlide() {
+                goToSlide(currentIndex - 1);
+            }
+
+            // 开启自动轮播
+            function startAutoPlay() {
+                clearInterval(autoTimer);
+                autoTimer = setInterval(nextSlide, autoDelay);
+            }
+            // 暂停自动轮播
+            function stopAutoPlay() {
+                clearInterval(autoTimer);
+            }
+
+            // 按钮点击事件
+            nextBtn.addEventListener('click', () => {
+                nextSlide();
+                stopAutoPlay();
+                startAutoPlay();
+            });
+            prevBtn.addEventListener('click', () => {
+                prevSlide();
+                stopAutoPlay();
+                startAutoPlay();
+            });
+
+            // 圆点点击切换
+            indicators.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    const targetIdx = Number(dot.dataset.index);
+                    goToSlide(targetIdx);
+                    stopAutoPlay();
+                    startAutoPlay();
+                });
+            });
+
+            // 鼠标悬浮暂停，离开继续
+            banner.addEventListener('mouseenter', stopAutoPlay);
+            banner.addEventListener('mouseleave', startAutoPlay);
+
+            // 窗口缩放重新计算宽度
+            window.addEventListener('resize', updateCarousel);
+
+            // 初始化执行
+            updateCarousel();
+            startAutoPlay();
+        });
+    </script>
+</body>
+</html>
